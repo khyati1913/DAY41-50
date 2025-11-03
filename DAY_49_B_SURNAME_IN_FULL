@@ -1,0 +1,46 @@
+Q98: Print initials of a name with the surname displayed in full.
+
+/*
+Sample Test Cases:
+Input 1:
+John David Doe
+Output 1:
+J.D. Doe
+
+*/
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+    char s[200];
+    if (!fgets(s, sizeof(s), stdin)) return 0;
+    size_t len = strlen(s);
+    if (len>0 && s[len-1]=='\n') s[len-1] = '\0';
+
+    // Trim leading/trailing spaces (skip for brevity)
+    // Split into words:
+    char *words[20]; int count = 0;
+    char *token = strtok(s, " ");
+    while (token != NULL) {
+        words[count++] = token;
+        token = strtok(NULL, " ");
+    }
+    if (count == 0) return 0;
+
+    // Output initials of all but last
+    for (int i = 0; i < count - 1; i++) {
+        char ch = toupper(words[i][0]);
+        printf("%c. ", ch);
+    }
+    // Print surname as full (possibly format capital first letter)
+    char *surname = words[count - 1];
+    surname[0] = toupper(surname[0]);
+    for (int j = 1; surname[j] != '\0'; j++) {
+        surname[j] = tolower(surname[j]);
+    }
+    printf("%s\n", surname);
+
+    return 0;
+}
