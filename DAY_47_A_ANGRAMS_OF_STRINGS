@@ -1,0 +1,58 @@
+Q93: Check if two strings are anagrams of each other.
+
+/*
+Sample Test Cases:
+Input 1:
+listen
+silent
+Output 1:
+Anagrams
+
+Input 2:
+hello
+world
+Output 2:
+Not anagrams
+
+*/
+
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s1[1000], s2[1000];
+    if (fgets(s1, sizeof(s1), stdin)==NULL) return 0;
+    if (fgets(s2, sizeof(s2), stdin)==NULL) return 0;
+
+    // Remove newline if present
+    size_t n1 = strlen(s1);
+    if (n1>0 && s1[n1-1]=='\n') { s1[n1-1] = '\0'; n1--; }
+    size_t n2 = strlen(s2);
+    if (n2>0 && s2[n2-1]=='\n') { s2[n2-1] = '\0'; n2--; }
+
+    if (n1 != n2) {
+        printf("Not anagrams\n");
+        return 0;
+    }
+
+    int count[256] = {0};
+    for (size_t i = 0; i < n1; i++) {
+        unsigned char ch = (unsigned char) s1[i];
+        count[ch]++;
+    }
+    for (size_t i = 0; i < n2; i++) {
+        unsigned char ch = (unsigned char) s2[i];
+        count[ch]--;
+    }
+
+    for (int i = 0; i < 256; i++) {
+        if (count[i] != 0) {
+            printf("Not anagrams\n");
+            return 0;
+        }
+    }
+
+    printf("Anagrams\n");
+    return 0;
+}
