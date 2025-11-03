@@ -1,0 +1,35 @@
+Q94: Find the longest word in a sentence.
+
+/*
+Sample Test Cases:
+Input 1:
+I love programming
+Output 1:
+programming
+
+*/
+
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[1000];
+    if (fgets(s, sizeof(s), stdin) == NULL) return 0;
+    size_t len = strlen(s);
+    if (len > 0 && s[len-1] == '\n') {
+        s[len-1] = '\0';
+    }
+
+    char *token = strtok(s, " ");
+    char longest[1000] = "";
+    while (token != NULL) {
+        if (strlen(token) > strlen(longest)) {
+            strcpy(longest, token);
+        }
+        token = strtok(NULL, " ");
+    }
+
+    printf("%s\n", longest);
+    return 0;
+}
