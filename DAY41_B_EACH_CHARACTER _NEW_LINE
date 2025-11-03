@@ -1,0 +1,12 @@
+#include <stdio.h>
+
+int main() {
+    char s[1000];
+    fgets(s, sizeof(s), stdin);
+    int i = 0;
+    while (s[i] != '\0' && s[i] != '\n') {
+        printf("%c\n", s[i]);  // print character then newline
+        i++;
+    }
+    return 0;
+}
